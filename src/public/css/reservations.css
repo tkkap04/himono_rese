@@ -1,0 +1,59 @@
+.container {
+    width: 90%;
+    margin: 5vw auto 0;
+    font-size: 1.8vw;
+}
+
+.container-title {
+    font-size: 2.5vw;
+    font-weight: bold;
+}
+
+.container-sendall{
+    display: block;
+    padding: 1vw 1.5vw;
+    margin-top: 1.5vw;
+    margin-bottom: 1.5vw;
+    text-align: center;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #2036ff;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1.2vw;
+}
+
+.container-send {
+    display: block;
+    padding: 1vw 1.5vw;
+    margin: 1.5vw auto;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #2036ff;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1.2vw;
+    text-align: center;
+}
+
+.reservation-table {
+    width: 90%;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+    margin-bottom: 4vw;
+}
+
+.reservation-table-thead {
+    border-bottom: 1px solid #000;
+}
+
+.reservation-table-head {
+    padding: 2vw;
+}
+
+.reservation-table-description {
+    text-align: center;
+    padding: 2vw;
+}

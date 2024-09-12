@@ -1,0 +1,104 @@
+.input {
+    text-align: center;
+    margin: 0 35vw;
+    border-radius: 8px;
+    background-color: #fff;
+    padding-bottom: 1vw;
+    width: 32%;
+}
+
+.input-title{
+    text-align: left;
+}
+
+.input-title__text{
+    font-size: 2vw;
+    font-weight: 100;
+    background-color: #1930ff;
+    color: #fff;
+    margin: 0 0 1vw 0;
+    padding: 1vw;
+    border-radius: 8px 8px 0 0 ;
+}
+
+.input-box {
+    text-align: left;
+    padding: 0 2vw;
+}
+
+.input-box__item__name::before {
+    content: "";
+    background: url(../images/user.svg);
+    background-size: cover;
+    vertical-align: middle;
+    width: 2vw;
+    height: 2vw;
+    display: inline-block;
+}
+
+.input-box__item__email::before {
+    content: "";
+    background: url(../images/email.svg);
+    background-size: cover;
+    vertical-align: middle;
+    width: 2vw;
+    height: 2vw;
+    display: inline-block;
+}
+
+.input-box__item__password::before {
+    content: "";
+    background: url(../images/password.svg);
+    background-size: cover;
+    vertical-align: middle;
+    width: 2vw;
+    height: 2vw;
+    display: inline-block;
+}
+
+.input-box__item-input{
+    border: none;
+    border-bottom: 1px solid #c0c0c0;
+    font-size: 1.5vw;
+    margin: 0.5vw;
+    padding-right: 2vw;
+}
+
+.input-box__item-text {
+    height: 10vw;
+    width: 100%;
+}
+
+.input-box__error-message{
+    font-size: 1vw;
+    text-align: left;
+    margin: 0.5vw;
+    padding-left: 5vw;
+}
+
+.input-box__item-submit{
+    font-size: 1.5vw;
+    text-align: right;
+    margin: 2vw;
+}
+
+.input-box__item-submit-button {
+    font-size: 1.5vw;
+    background-color: #1930ff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 0.2vw 1vw;
+    cursor: pointer;
+}
+
+.stripe-button-el{
+    font-size: 1.5vw;
+    background-color: #1930ff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 0.2vw 1vw;
+    cursor: pointer;
+    margin-top: 2vw;
+}

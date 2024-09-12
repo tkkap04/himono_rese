@@ -1,0 +1,167 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.header-left {
+    align-items: baseline;
+}
+
+/* 検索バー */
+.header-search {
+    display: flex;
+    height: 5vw;
+    justify-content: center;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.header-search__form {
+    display: flex;
+    align-items: center;
+    border: none;
+}
+
+.header-search select, .header-search input {
+    padding: 0 1vw;
+    border: none;
+    font-size: 1.2vw;
+}
+
+.header-search button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.header-search button:hover {
+    background-color: #0056b3;
+}
+
+.header-search__criteria  {
+    display: flex;
+}
+
+.header-search__criteria-title {
+    font-size: 1.5vw;
+    font-weight: bold;
+    margin-right: 1vw;
+}
+
+.header-search__criteria-box{
+    display: flex;
+}
+
+.header-search__criteria-item {
+    font-size: 1.5vw;
+    margin-right: 1vw;
+}
+
+/* 一覧 */
+.shop-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding: 2vw 4vw;
+}
+
+.shop-list__card {
+    width: 23%;
+    height: 22vw;
+    margin-bottom: 1.5vw;
+    margin-right: 2vw;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.shop-list__card:nth-child(4n) {
+    margin-right: 0;
+}
+
+.shop-list__image {
+    height: 50%;
+    background-size: cover;
+    border-radius: 8px 8px 0 0;
+}
+
+.shop-list__info {
+    padding: 1vw;
+}
+
+.shop-list__name {
+    font-size: 1.5vw;
+    font-weight: bold;
+    margin: 0;
+}
+
+.shop-list__tag {
+    display: flex;
+
+}
+
+.shop-list__area,
+.shop-list__genre {    
+    color: #1d1d1d;
+    margin: 0.5vw 0 1vw 0;
+    font-size: 0.9vw;
+}
+
+.shop-list__button {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2vw;
+    font-size: 1vw;
+}
+
+.shop-list__detail-button {
+    display: block;
+    width: 40%;
+    padding: 8px 0;
+    text-align: center;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #1930ff;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.shop-list__favorite-button {
+    background-color: #c0c0c0;
+    background-color: none;
+    border: none;
+    padding: none;
+}
+
+
+
+/* レスポンシブ */
+@media screen and (max-width: 768px) {
+    .shop-list__card {
+        width: 48%;
+        height: 32vw;
+        margin-bottom: 1.5vw;
+        margin-right: 2vw;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    .shop-list__card:nth-child(2n) {
+        margin-right: 0;
+    }
+
+    .shop-list__image {
+        height: 50%;
+        background-size: cover;
+        border-radius: 8px 8px 0 0;
+    }
+}

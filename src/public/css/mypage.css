@@ -1,0 +1,242 @@
+.mypage-username {
+    width: 40%;
+    text-align: left;
+    font-size: 1.4vw;
+    margin-left: 3vw;
+}
+
+.mypage-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* 予約一覧 */
+.reservation-list {
+    width: 40%;
+    margin: 0 3vw;
+    order: 1;
+}
+
+.reservation-list__title{
+    font-size: 1.8vw;
+}
+
+
+.reservation-list__card {
+    width: 100%;
+    height: 10%;
+    background-color: rgb(57, 87, 255);
+    border-radius: 8px;
+    margin: 0 4vw 2vw 0;
+    padding: 2vw 2vw;
+    color: #fff;
+    display: flex;
+}
+
+.reservation-list__left {
+    width: 70%;
+}
+
+.reservation-list__right {
+    width: 30%;
+}
+
+.reservation-list__item {
+    margin: 0 0 0.5vw 0;
+    font-size: 1.5vw;
+}
+
+.reservation-list__delete-button {
+    width: 6vw;
+    display: block;
+    padding: 1vw 1.5vw;
+    margin-top: 4vw;
+    text-align: center;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #000f97;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1vw;
+}
+
+.reservation-list__edit-button {
+    width: 6vw;
+    display: block;
+    padding: 1vw 1.5vw;
+    margin-top: 1.5vw;
+    text-align: center;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #6373ff;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1vw;
+}
+
+.reservation-list__cancel-button{
+    width: 6vw;
+    display: block;
+    padding: 1vw 1.5vw;
+    margin-top: 1.5vw;
+    text-align: center;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #6373ff;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1vw;
+}
+
+.reservation-list__save-button{
+    width: 6vw;
+    display: block;
+    padding: 1vw 1.5vw;
+    margin-top: 1.5vw;
+    text-align: center;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #6373ff;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1vw;
+}
+
+.reservation-list__qr-button {
+    width: 6vw;
+    display: block;
+    padding: 1vw 1.5vw;
+    margin-top: 1.5vw;
+    text-align: center;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #1b37b3;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1vw;
+}
+
+/* お気に入り一覧 */
+.shop-list {
+    width: 60%;
+    margin: 0 3vw;
+    order: 2;
+}
+
+.shop-list__box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.shop-list__title {
+    width: 55%;
+    font-size: 1.8vw;
+}
+
+.shop-list__card {
+    width: 48%;
+    height: 25vw;
+    margin: 0 1vw 2vw 0;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.shop-list__image {
+    height: 50%;
+    background-size: cover;
+    border-radius: 8px 8px 0 0;
+}
+
+.shop-list__info {
+    padding: 1vw;
+    height: 50%;
+}
+
+.shop-list__name {
+    font-size: 1.5vw;
+    font-weight: bold;
+    margin: 0;
+}
+
+.shop-list__tag {
+    display: flex;
+    font-size: 1vw;
+}
+
+.shop-list__area,
+.shop-list__genre {
+    color: #1d1d1d;
+    margin: 0.5vw 0 1vw 0;
+}
+
+.shop-list__button {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1vw;
+}
+
+.shop-list__detail-button {
+    display: block;
+    width: 40%;
+    padding: 1vw 0;
+    text-align: center;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #1930ff;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.shop-list__favorite-button {
+    background-color: #c0c0c0;
+    background-color: none;
+    border: none;
+    padding: none;
+}
+
+/* レスポンシブ (768px以上)*/
+@media screen and (max-width: 768px) {
+    .mypage-content {
+        display: flex;
+        flex-direction: column;
+        height: 64vw;
+        margin-bottom: 1.5vw;
+    }
+
+    .reservation-list {
+        width: 95%;
+        order: 1;
+    }
+
+    .reservation-list__box {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .reservation-list__card {
+        width: 45%;
+    }
+
+    .shop-list {
+        order: 2;
+        width: 95%;
+    }
+
+    .shop-list__card {
+        width: 45%;
+        height: 30vw;
+        margin:0 2vw 3vw 0;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    }
+
+}
