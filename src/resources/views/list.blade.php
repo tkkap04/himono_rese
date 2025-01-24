@@ -5,8 +5,15 @@
 @endsection
 
 @section('header-left')
-<div class="header-menu">
-    <button id="menu-button">Menu</button>
+<div class="header-sort">
+    <form class="header-sort__form" action="{{ route('shops.index') }}" method="GET">
+        <select class="header-sort__form-select" name="sort" id="sort" onchange="this.form.submit()">
+            <option value="" disabled {{ request('sort') ? '' : 'selected' }}>並び替え：評価高/低</option>
+            <option value="random" {{ request('sort') === 'random' ? 'selected' : '' }}>ランダム</option>
+            <option value="high_rating" {{ request('sort') === 'high_rating' ? 'selected' : '' }}>評価が高い順</option>
+            <option value="low_rating" {{ request('sort') === 'low_rating' ? 'selected' : '' }}>評価が低い順</option>
+        </select>
+    </form>
 </div>
 @endsection
 
@@ -27,7 +34,7 @@
         </select>
             <input type="text" name="search" placeholder="Search..." value="{{ request()->get('search') }}">
             <button type="submit">Search</button>
-        </form>
+    </form>
 </div>
 <div class="header-search__criteria">
     <p class="header-search__criteria-title">検索条件</p>
@@ -60,16 +67,16 @@
                 <a href="{{ route('shop.detail', $shop->id) }}" class="shop-list__detail-button">詳しくみる</a>
 
                 @if(Auth::check() && $shop->favoritedBy(Auth::user()))
-                <form action="{{ route('favorites.destroy', $shop->id) }}" method="POST">
+                <form action="{{ route('favorites.destroy', $shop->id) }}" method="POST" class="favorite-form" data-shop-id="{{ $shop->id }}">
                     @csrf
                     @method('DELETE')
-                    <button class="shop-list__favorite-button">❤️</button>
+                    <img class="shop-list__favorite-icon" src="/images/heart_red.png" alt="お気に入り">
                 </form>
                 @else
-                <form action="{{ route('favorites.store') }}" method="POST">
+                <form action="{{ route('favorites.store') }}" method="POST" class="favorite-form" data-shop-id="{{ $shop->id }}">
                     @csrf
                     <input type="hidden" name="shop_id" value="{{ $shop->id }}">
-                    <button class="shop-list__favorite-button">♡</button>
+                    <img class="shop-list__favorite-icon" src="/images/heart_gray.png" alt="お気に入り">
                 </form>
                 @endif
             </div>
@@ -77,4 +84,7 @@
     </div>
     @endforeach
 </div>
+
+<script src="{{ asset('js/favorite.js') }}"></script>
+
 @endsection

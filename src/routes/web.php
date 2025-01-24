@@ -31,7 +31,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/detail/{id}', [ShopController::class, 'detail'])->name('shop.detail');
 
     // 評価機能
-    Route::post('/detail/{shopId}/reviews', [ReviewController::class, 'storeReview'])->name('reviews.store');
+    Route::get('/reviews/{shopId}/create', [ReviewController::class, 'create'])->name('reviews.create');
+    Route::post('/reviews/{id}/store', [ReviewController::class, 'store'])->name('reviews.store');
+    Route::get('/reviews/{id}/edit', [ReviewController::class, 'edit'])->name('reviews.edit');
+    Route::put('/reviews/{id}/update', [ReviewController::class, 'update'])->name('reviews.update');
+    Route::delete('/reviews/{id}/delete', [ReviewController::class, 'destroy'])->name('reviews.destroy');
 
     // お気に入り
     Route::post('/favorites', [FavoriteController::class, 'store'])->name('favorites.store');
@@ -48,7 +52,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/verify-qr-code', [ReservationController::class, 'verifyQrCode'])->name('verify-qr-code');
 
     //決済
-    route::get('/payment', [PaymentController::class, 'show'])->name('payment.show');Route::post('/payment', [PaymentController::class, 'processPayment'])->name('payment.process');
+    route::get('/payment', [PaymentController::class, 'show'])->name('payment.show');
+    Route::post('/payment', [PaymentController::class, 'processPayment'])->name('payment.process');
 });
 
 // 管理者

@@ -14,15 +14,22 @@ http://localhost
 - ログイン機能
 - メール認証機能
 - 飲食店検索機能
+- 飲食店ソート機能
 - お気に入り機能（登録・削除）
 - 予約機能（新規・変更・削除）
 - リマインダー機能
 - QRコード照会機能
 - 評価機能
+- 口コミ投稿機能
+- csvファイルから店舗データ取り込み機能
 - 決済機能
 - 管理者-店舗代表者作成機能
 - 店舗代表者-店舗情報作成・更新機能
 - 管理者・店舗代表者-メール送信機能
+
+csvファイルは1列目に下記の通り項目を記載
+1-A 店舗名　1-B 地域　1-C ジャンル　1-D 店舗概要　1-E 画像URL
+2列目以降に各店舗ごとの情報を入力
 
 ## 使用技術(実行環境)
 - Laravel Framework 8.83.27
@@ -41,6 +48,8 @@ http://localhost
 3. .env.exampleファイルから.envを作成し、環境変数を変更
 4. php artisan key:generate
 5. php artisan migrate
+6. php artisan storage:link
+7. http://localhost/import にアクセスしてcsvファイルをインポート
 
 ## URL
 - 開発環境：http://localhost/

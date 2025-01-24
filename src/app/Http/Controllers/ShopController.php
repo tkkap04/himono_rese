@@ -17,6 +17,7 @@ class ShopController extends Controller
         $query = Shop::query();
 
         $searchParams = [];
+        $sort = null;
 
         if ($request->filled('area')) {
             $query->where('area_id', $request->area);
@@ -33,19 +34,35 @@ class ShopController extends Controller
             $searchParams['search'] = $request->search;
         }
 
+        if ($request->filled('sort')) {
+            $sort = $request->sort;
+
+            if ($request->sort === 'random') {
+                $query->inRandomOrder();
+            } elseif ($request->sort === 'high_rating') {
+                $query->withAvg('reviews', 'rating')->orderByDesc('reviews_avg_rating');
+            } elseif ($request->sort === 'low_rating') {
+            $query->withAvg('reviews', 'rating')
+                  ->orderByRaw('CASE WHEN reviews_avg_rating IS NULL THEN 1 ELSE 0 END')
+                  ->orderBy('reviews_avg_rating', 'asc'); 
+            }
+        }
+
         $shops = $query->get();
         $user = Auth::user();
 
-        return view('list', compact('shops', 'areas', 'genres', 'user', 'searchParams'));
+        return view('list', compact('shops', 'areas', 'genres', 'user', 'sort', 'searchParams'));
     }
 
     public function detail($id)
     {
-        $shop = Shop::with('genre')->findOrFail($id);
+        $shop = Shop::with(['genre', 'reviews'])->findOrFail($id);
+
         $reviews = $shop->reviews;
+        $hasUserReview = $reviews->contains('user_id', Auth::id());
 
         $averageRating = $reviews->avg('rating');
 
-        return view('detail', compact('shop', 'reviews', 'averageRating'));
+        return view('detail', compact('shop', 'reviews', 'averageRating', 'hasUserReview'));
     }
 }

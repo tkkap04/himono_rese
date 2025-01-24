@@ -9,7 +9,7 @@
 }
 
 /* 検索バー */
-.header-search {
+.header-search, .header-sort {
     display: flex;
     height: 5vw;
     justify-content: center;
@@ -20,13 +20,14 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
-.header-search__form {
+.header-search__form, .header-sort__form {
     display: flex;
     align-items: center;
     border: none;
 }
 
-.header-search select, .header-search input {
+.header-search select, .header-search input,
+.header-sort select, .header-sort input {
     padding: 0 1vw;
     border: none;
     font-size: 1.2vw;
@@ -134,22 +135,25 @@
     text-decoration: none;
 }
 
-.shop-list__favorite-button {
-    background-color: #c0c0c0;
-    background-color: none;
-    border: none;
-    padding: none;
+.shop-list__favorite-icon {
+    width: 3vw;
+    height: 3vw;
+    cursor: pointer;
+    transition: transform 0.2s ease;
 }
 
+.shop-list__favorite-icon:hover {
+    transform: scale(1.1);
+}
 
 
 /* レスポンシブ */
 @media screen and (max-width: 768px) {
     .shop-list__card {
-        width: 48%;
+        width: 45%;
         height: 32vw;
         margin-bottom: 1.5vw;
-        margin-right: 2vw;
+        margin: 1vw auto;
         background: #fff;
         border-radius: 8px;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);

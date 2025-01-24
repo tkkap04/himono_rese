@@ -195,11 +195,15 @@
     text-decoration: none;
 }
 
-.shop-list__favorite-button {
-    background-color: #c0c0c0;
-    background-color: none;
-    border: none;
-    padding: none;
+.shop-list__favorite-icon {
+    width: 3vw;
+    height: 3vw;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.shop-list__favorite-icon:hover {
+    transform: scale(1.1);
 }
 
 /* レスポンシブ (768px以上)*/

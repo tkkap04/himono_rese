@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Shop;
 use App\Models\Area;
 use App\Models\Genre;
+use Illuminate\Support\Facades\Validator;
 use Exception;
 
 class CsvImportController extends Controller
@@ -18,7 +19,6 @@ class CsvImportController extends Controller
     public function csvImport(Request $request)
     {
         if ($request->hasFile('csvFile')) {
-            // リクエストからファイルを取得
             $file = $request->file('csvFile');
             $path = $file->getRealPath();
 
@@ -35,17 +35,13 @@ class CsvImportController extends Controller
                     while (($csvData = fgetcsv($fp)) !== FALSE) {
                         $this->insertCsvData($csvData);
                     }
-
-                    // トランザクションコミット
                     \DB::commit();
                 } catch (\Exception $e) {
-                    // トランザクションロールバック
                     \DB::rollBack();
                     fclose($fp);
                     return redirect()->back()->with('error', 'CSVファイルのインポートに失敗しました: ' . $e->getMessage());
                 }
 
-                // ファイルを閉じる
                 fclose($fp);
                 return redirect()->back()->with('success', 'CSVファイルのインポートに成功しました。');
             } else {
@@ -56,18 +52,40 @@ class CsvImportController extends Controller
         }
     }
 
-    public function insertCsvData($csvData)
+     public function insertCsvData($csvData)
     {
-        // csvファイル情報をインサートする
-        $area = Area::firstOrCreate(['name' => $csvData[1]]);
-        $genre = Genre::firstOrCreate(['name' => $csvData[2], 'image_url' => $csvData[4]]);
+        $rules = [
+            'name' => 'required|string|max:50',
+            'area' => 'required|in:東京都,大阪府,福岡県',
+            'genre' => 'required|in:寿司,焼肉,イタリアン,居酒屋,ラーメン',
+            'description' => 'required|string|max:400',
+            'image_url' => ['required', 'url', 'regex:/\.(jpeg|jpg|png)$/i'],
+
+        ];
+
+        $data = [
+            'name' => $csvData[0],
+            'area' => $csvData[1],
+            'genre' => $csvData[2],
+            'description' => $csvData[3],
+            'image_url' => $csvData[4],
+        ];
+
+        $validator = Validator::make($data, $rules);
+
+        if ($validator->fails()) {
+            throw new Exception("バリデーションエラー: " . implode(", ", $validator->errors()->all()));
+        }
+
+        $area = Area::firstOrCreate(['name' => $data['area']]);
+        $genre = Genre::firstOrCreate(['name' => $data['genre']]);
 
         Shop::create([
-            'name' => $csvData[0],
+            'name' => $data['name'],
             'area_id' => $area->id,
             'genre_id' => $genre->id,
-            'description' => $csvData[3],
-            'image_url' => $csvData[4]
+            'description' => $data['description'],
+            'image_url' => $data['image_url']
         ]);
     }
 }

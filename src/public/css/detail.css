@@ -1,15 +1,11 @@
-.detail-above {
+.detail-content {
     display: flex;
     justify-content: space-between;
     margin-bottom: 4vw;
 }
 
-.detail-below {
-    margin: 4vw;
-}
-
 /* 店舗詳細 */
-.detail {
+.detail-left {
     width: 50%;
     margin: 0 4vw;
 }
@@ -44,13 +40,114 @@
     font-size: 1.2vw;
 }
 
+/* 口コミ */
+.review-list__separator {
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1.5vw 0;
+    width: 100%;
+}
+
+.review-item{
+    border-bottom: 1px solid #ccc;
+    margin: 1.5vw 0;
+    width: 100%;
+}
+
+.review-list__title {
+    background-color: rgb(94, 118, 250);
+    color: #fff;
+    height: 4vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.review-list__title-text {
+    font-size: 1.5vw;
+    margin: 0;
+}
+
+.review-item__create-button {
+    background: none;
+    border: none;
+    color: black;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+    font-size: inherit;
+    font-family: inherit;
+    margin-bottom: 2vw;
+    font-size: 1.2vw;
+}
+
+.review-item__create-button:hover {
+    text-decoration: none;
+    color: gray;
+}
+
+.review-list__none{
+    font-size: 1.2vw;
+}
+
+/* 星評価 */
+.review-item__rating {
+    display: flex;
+    gap: 0.5vw;
+}
+
+.star {
+    width: 1.5vw;
+    height: 1.5vw;
+    display: inline-block;
+    background-size: cover;
+}
+
+.star-blue {
+    background-image: url('/images/star_blue.png');
+}
+
+.star-gray {
+    background-image: url('/images/star_gray.png');
+}
+
+/* 編集・削除ボタン */
+.review-item__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1vw;
+    align-items: center;
+}
+
+.review-item__edit-button,
+.review-item__delete-button {
+    display: inline-block;
+    color: black;
+    text-decoration: underline;
+    font-size: 1.2vw;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    line-height: 1;
+}
+
+.review-item__edit-button:hover,
+.review-item__delete-button:hover {
+    color: #555;
+}
+
 /* 予約フォーム */
-.reservation {
+.detail-right {
     width: 50%;
+    margin: 0 4vw;
+}
+
+.reservation {
     background-color: rgb(57, 87, 255);
     border-radius: 8px;
-    margin: 0 4vw;
-    padding: 0 2vw;
+    padding: 1vw 2vw 2vw;
 }
 
 .reservation-title {
@@ -86,7 +183,7 @@
     border-radius: 4px;
     color: #fff;
     padding: 1vw;
-    margin-bottom: 2vw;
+    margin-bottom: 10vw;
 }
 
 .reservation-form__summary-item {
@@ -176,34 +273,26 @@
 
 /* レスポンシブ */
 @media screen and (max-width: 768px) {
-    .content {
-        display: block;
+    .detail-content {
+        display: flex;
+        flex-direction: column;
     }
 
-    .detail {
-        width: 90%;
-        height: 64vw;
-        margin-bottom: 10vw;
-        background: none;
-        background-size: cover;
+    .detail-right {
+        order: 1;
+        width: 70%;
+        margin: 0 auto;
     }
 
-    .detail__image {
-        height: 80%;
+    .detail-left {
+        order: 2;
+        width: 70%;
+        margin: 0 auto;
     }
 
-    .reservation {
-        width: 90%;
-        height: 64vw;
-        margin-bottom: 1.5vw;
-        background: rgb(57, 87, 255);
-        border-radius: 8px;
-        padding: 1vw 2vw;
-    }
-
-    .mypage {
-        height: 50%;
-        background-size: cover;
-        border-radius: 8px 8px 0 0;
+    .detail-right,
+    .detail-left .detail,
+    .detail-left .review {
+        margin-bottom: 2vw;
     }
 }

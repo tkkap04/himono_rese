@@ -48,8 +48,13 @@
             </div>
             <script src="{{ asset('js/menu.js') }}"></script>
         </div>
-        <div class="header-right">
-            @yield('header-right')
+        <div class="header-content">
+            <div class="header-left">
+                @yield('header-left')
+            </div>
+            <div class="header-right">
+                @yield('header-right')
+            </div>
         </div>
     </header>
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Shop;
 use App\Models\Favorite;
 use App\Models\Reservation;
 use Illuminate\Support\Facades\Auth;

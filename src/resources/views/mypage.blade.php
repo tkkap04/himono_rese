@@ -58,30 +58,30 @@
         <h2 class="shop-list__title">お気に入り店舗</h2>
         <div class="shop-list__box">
             @foreach($favorites as $favorite)
-            <div class="shop-list__card">
-                <div class="shop-list__image" style="background-image: url('{{ $favorite->shop->image_url }}');"></div>
-                <div class="shop-list__info">
-                    <h3 class="shop-list__name">{{ $favorite->shop->name }}</h3>
-                    <div class="shop-list__tag">
-                        <p class="shop-list__area">#{{ $favorite->shop->area->name }}</p>
-                        <p class="shop-list__genre">#{{ $favorite->shop->genre->name }}</p>
-                    </div>
-                    <div class="shop-list__button">
-                        <a href="/detail/{{ $favorite->shop->id }}" class="shop-list__detail-button">詳しくみる</a>
-                        <form action="{{ route('favorites.destroy', $favorite->shop->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button class="shop-list__favorite-button">❤️</button>
-                        </form>
+                <div class="shop-list__card">
+                    <div class="shop-list__image" style="background-image: url('{{ $favorite->shop->image_url }}');"></div>
+                    <div class="shop-list__info">
+                        <h3 class="shop-list__name">{{ $favorite->shop->name }}</h3>
+                        <div class="shop-list__tag">
+                            <p class="shop-list__area">#{{ $favorite->shop->area->name }}</p>
+                            <p class="shop-list__genre">#{{ $favorite->shop->genre->name }}</p>
+                        </div>
+                        <div class="shop-list__button">
+                            <a href="{{ route('shop.detail', $favorite->shop->id) }}" class="shop-list__detail-button">詳しくみる</a>
+                            <form action="{{ route('favorites.destroy', $favorite->shop->id) }}" method="POST" class="favorite-form" data-shop-id="{{ $favorite->shop->id }}">
+                                @csrf
+                                @method('DELETE')
+                                <img class="shop-list__favorite-icon" src="/images/heart_red.png" alt="お気に入り">
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
             @endforeach
         </div>
     </div>
 </div>
 
-
 <script src="{{ asset('js/mypage.js') }}"></script>
+<script src="{{ asset('js/favorite.js') }}"></script>
 
 @endsection
