@@ -13,18 +13,16 @@ RUN apt-get update && apt-get install -y \
     libmagickwand-dev --no-install-recommends \
     cron \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) gd \
-    && docker-php-ext-install zip
+    && docker-php-ext-install -j$(nproc) gd zip pdo_mysql \
     && pecl install imagick \
-    && docker-php-ext-enable imagick \
-    && docker-php-ext-install pdo pdo_mysql
+    && docker-php-ext-enable imagick
 
 RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 ENV TZ Asia/Tokyo
 
 RUN curl -sS https://getcomposer.org/installer | php \
-  && mv composer.phar /usr/local/bin/composer \
-  && composer self-update
+    && mv composer.phar /usr/local/bin/composer \
+    && composer self-update
 
 COPY crontab /etc/cron.d/laravel-cron
 RUN chmod 644 /etc/cron.d/laravel-cron
