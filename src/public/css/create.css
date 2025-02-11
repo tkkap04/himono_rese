@@ -181,6 +181,11 @@
     box-shadow: none;
 }
 
+.input-box__error-message{
+    font-size: 1.2vw;
+    color: red;
+}
+
 @media screen and (max-width: 768px) {
     .create-content {
         display: flex;

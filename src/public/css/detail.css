@@ -1,13 +1,14 @@
 .detail-content {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 0.5fr 4fr 1fr 4fr 0.5fr;
+    grid-template-rows: auto auto;
     margin-bottom: 4vw;
 }
 
 /* 店舗詳細 */
-.detail-left {
-    width: 50%;
-    margin: 0 4vw;
+.detail {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
 }
 
 .detail__back {
@@ -41,6 +42,11 @@
 }
 
 /* 口コミ */
+.review {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+}
+
 .review-list__separator {
     border: 0;
     border-top: 1px solid #ccc;
@@ -84,6 +90,10 @@
 .review-item__create-button:hover {
     text-decoration: none;
     color: gray;
+}
+
+.review-item__comment {
+    font-size: 1.5vw;
 }
 
 .review-list__none{
@@ -139,12 +149,9 @@
 }
 
 /* 予約フォーム */
-.detail-right {
-    width: 50%;
-    margin: 0 4vw;
-}
-
 .reservation {
+    grid-column: 4 / 5;
+    grid-row: 1 / 2;
     background-color: rgb(57, 87, 255);
     border-radius: 8px;
     padding: 1vw 2vw 2vw;
@@ -274,25 +281,31 @@
 /* レスポンシブ */
 @media screen and (max-width: 768px) {
     .detail-content {
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: 1.5fr 7fr 1.5fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        justify-items: center;
     }
 
-    .detail-right {
-        order: 1;
-        width: 70%;
-        margin: 0 auto;
+    .detail,
+    .reservation,
+    .review {
+        width: 80%;
+        margin-bottom: 5vw;
     }
 
-    .detail-left {
-        order: 2;
-        width: 70%;
-        margin: 0 auto;
+    .detail {
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;
     }
 
-    .detail-right,
-    .detail-left .detail,
-    .detail-left .review {
-        margin-bottom: 2vw;
+    .reservation {
+        grid-column: 2 / 3;
+        grid-row: 2 / 3;
+    }
+
+    .review {
+        grid-column: 2 / 3;
+        grid-row: 3 / 4;
     }
 }

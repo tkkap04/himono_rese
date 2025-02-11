@@ -50,6 +50,7 @@ csvファイルは1列目に下記の通り項目を記載
 5. php artisan migrate
 6. php artisan storage:link
 7. http://localhost/import にアクセスしてcsvファイルをインポート
+8. himono_rese直下にあるshops.csvに加えて、newshop.csvを配置しました
 
 ## URL
 - 開発環境：http://localhost/

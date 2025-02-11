@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ReviewRequest;
 use App\Models\Review;
 use App\Models\Shop;
-
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+
 
 class ReviewController extends Controller
 {
@@ -14,8 +15,13 @@ class ReviewController extends Controller
     {
         $shop = Shop::with(['area', 'genre'])->findOrFail($shopId);
 
-        return view('create', compact('shop'));
+        $review = Review::where('shop_id', $shopId)
+                        ->where('user_id', Auth::id())
+                        ->first();
+
+        return view('create', compact('shop', 'review'));
     }
+
 
     /* 新規口コミの作成 */
     public function store(ReviewRequest $request, $shopId)
@@ -24,12 +30,9 @@ class ReviewController extends Controller
             ->where('user_id', Auth::id())
             ->count();
 
-        if ($existingReviewsCount >= 2) {
-            return redirect()->route('shop.detail', ['id' => $shopId])
-                ->withErrors('1店舗につき最大2件まで口コミを投稿できます。');
-        }
-
-        $imagePath = $request->file('image') ? $request->file('image')->store('reviews', 'public') : null;
+        $imagePath = $request->hasFile('image') 
+            ? $request->file('image')->store('reviews', 'public') 
+            : null;
 
         Review::create([
             'shop_id' => $shopId,
@@ -65,7 +68,14 @@ class ReviewController extends Controller
             abort(403, '権限がありません。');
         }
 
-        $imagePath = $request->file('image') ? $request->file('image')->store('reviews', 'public') : $review->image_url;
+        if ($request->hasFile('image')) {
+            if ($review->image_url) {
+                Storage::disk('public')->delete($review->image_url);
+            }
+            $imagePath = $request->file('image')->store('reviews', 'public');
+        } else {
+            $imagePath = $review->image_url;
+        }
 
         $review->update([
             'rating' => $request->rating,
@@ -84,6 +94,10 @@ class ReviewController extends Controller
 
         if ($review->user_id !== Auth::id() && !Auth::user()->isAdmin()) {
             abort(403, '権限がありません。');
+        }
+
+        if ($review->image_url) {
+            Storage::disk('public')->delete($review->image_url);
         }
 
         $review->delete();

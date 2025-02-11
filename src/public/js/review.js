@@ -90,6 +90,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 imagePreview.innerHTML = '<p style="color: red;">画像ファイル（jpeg/png）を選択してください。</p>';
             }
         }
+
+        const existingImage = imagePreview.dataset.image;
+        if (existingImage) {
+            imagePreview.innerHTML = `<img src="${existingImage}" alt="既存の画像" style="max-width: 200px;">`;
+        }
+
+        dropArea.addEventListener('dragover', (event) => {
+            event.preventDefault();
+            dropArea.classList.add('dragover');
+        });
+
+        dropArea.addEventListener('dragleave', () => dropArea.classList.remove('dragover'));
+
+        dropArea.addEventListener('drop', (event) => {
+            event.preventDefault();
+            dropArea.classList.remove('dragover');
+            const files = event.dataTransfer.files;
+            if (files.length > 0) handleFile(files[0]);
+        });
+
+        imageInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) handleFile(file);
+        });
     };
 
     // 各機能の初期化

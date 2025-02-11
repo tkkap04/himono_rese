@@ -22,19 +22,27 @@ class CsvImportController extends Controller
             $file = $request->file('csvFile');
             $path = $file->getRealPath();
 
-            // ファイルを開く
             if (($fp = fopen($path, 'r')) !== FALSE) {
-                // ヘッダー行をスキップ
                 fgetcsv($fp);
                 
-                // トランザクション開始
                 \DB::beginTransaction();
 
+                $errors = []; // バリデーションエラーを格納
+
                 try {
-                    // 1行ずつ読み込む
                     while (($csvData = fgetcsv($fp)) !== FALSE) {
-                        $this->insertCsvData($csvData);
+                        $validationErrors = $this->insertCsvData($csvData);
+                        if ($validationErrors) {
+                            $errors[] = $validationErrors;
+                        }
                     }
+
+                    if (!empty($errors)) {
+                        \DB::rollBack();
+                        fclose($fp);
+                        return redirect()->back()->withErrors($errors)->withInput();
+                    }
+
                     \DB::commit();
                 } catch (\Exception $e) {
                     \DB::rollBack();
@@ -52,15 +60,36 @@ class CsvImportController extends Controller
         }
     }
 
-     public function insertCsvData($csvData)
+
+    public function insertCsvData($csvData)
     {
         $rules = [
             'name' => 'required|string|max:50',
             'area' => 'required|in:東京都,大阪府,福岡県',
             'genre' => 'required|in:寿司,焼肉,イタリアン,居酒屋,ラーメン',
             'description' => 'required|string|max:400',
-            'image_url' => ['required', 'url', 'regex:/\.(jpeg|jpg|png)$/i'],
+            'image_url' => [
+                'required', 'url', 'regex:/\.(jpeg|jpg|png)$/i',
+                function ($attribute, $value, $fail) {
+                    if (!in_array(pathinfo(parse_url($value, PHP_URL_PATH), PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png'])) {
+                        $fail('アップロード可能な画像形式は jpg, jpeg, png のみです。');
+                    }
+                }
+            ],
+        ];
 
+        $messages = [
+            'name.required' => '店舗名を入力してください。',
+            'name.max' => '店舗名は50文字以内で入力してください。',
+            'area.required' => '地域を選択してください。',
+            'area.in' => '地域は「東京都」「大阪府」「福岡県」のいずれかを選択してください。',
+            'genre.required' => 'ジャンルを選択してください。',
+            'genre.in' => 'ジャンルは「寿司」「焼肉」「イタリアン」「居酒屋」「ラーメン」のいずれかを選択してください。',
+            'description.required' => '店舗概要を入力してください。',
+            'description.max' => '店舗概要は400文字以内で入力してください。',
+            'image_url.required' => '画像URLを入力してください。',
+            'image_url.url' => '画像URLの形式が正しくありません。',
+            'image_url.regex' => '画像URLの拡張子は jpg, jpeg, png のいずれかを指定してください。',
         ];
 
         $data = [
@@ -71,10 +100,10 @@ class CsvImportController extends Controller
             'image_url' => $csvData[4],
         ];
 
-        $validator = Validator::make($data, $rules);
+        $validator = Validator::make($data, $rules, $messages);
 
         if ($validator->fails()) {
-            throw new Exception("バリデーションエラー: " . implode(", ", $validator->errors()->all()));
+            return $validator->errors()->all();
         }
 
         $area = Area::firstOrCreate(['name' => $data['area']]);
@@ -87,5 +116,8 @@ class CsvImportController extends Controller
             'description' => $data['description'],
             'image_url' => $data['image_url']
         ]);
+
+        return null;
     }
+
 }

@@ -42,6 +42,11 @@
         <div class="create-form__title">
             <p class="create-form__text">体験を評価してください</p>
         </div>
+        <p class="input-box__error-message">
+            @error('rating')
+            {{ $message }}
+            @enderror
+        </p>
         <form action="{{ isset($review) ? route('reviews.update', ['id' => $review->id]) : route('reviews.store', ['id' => $shop->id]) }}" 
         method="POST" enctype="multipart/form-data">
             @csrf
@@ -52,7 +57,7 @@
             <div class="create-form__rating">
                 <div class="rating">
                     @for ($i = 1; $i <= 5; $i++)
-                        <input type="radio" id="star{{ $i }}" name="rating" value="{{ $i }}" {{ (isset($review) && $review->rating == $i) ? 'checked' : '' }} required>
+                        <input type="radio" id="star{{ $i }}" name="rating" value="{{ $i }}" {{ (isset($review) && $review->rating == $i) ? 'checked' : '' }}>
                         <label for="star{{ $i }}" class="rating__star" data-value="{{ $i }}"></label>
                     @endfor
                 </div>
@@ -60,7 +65,12 @@
 
             <div class="create-form__comment">
                 <p class="create-form__text"><label for="comment">口コミを投稿</label></p>
-                <textarea class="create-form__text-input" name="comment" id="comment" maxlength="400" required>{{ old('comment', isset($review) ? $review->comment : '') }}</textarea>
+                <p class="input-box__error-message">
+                    @error('comment')
+                    {{ $message }}
+                    @enderror
+                </p>
+                <textarea class="create-form__text-input" name="comment" id="comment" maxlength="400">{{ old('comment', isset($review) ? $review->comment : '') }}</textarea>
                 <p class="create-form__text-count" id="char-count">0/400(最高文字数)</p>
             </div>
 
@@ -73,7 +83,11 @@
                         <input type="file" name="image" id="image" accept="image/jpeg,image/png" hidden>
                     </div>
                 </label>
-                <div id="image-preview" class="create-form__image-preview"></div>
+                <div id="image-preview" class="create-form__image-preview">
+                    @if(isset($review) && $review->image_url)
+                        <img src="{{ asset('storage/' . $review->image_url) }}" alt="現在の画像" style="max-width: 200px;">
+                    @endif
+                </div>
             </div>
 
             <button class="create-form__button" type="submit">{{ isset($review) ? '更新する' : '投稿する' }}</button>
